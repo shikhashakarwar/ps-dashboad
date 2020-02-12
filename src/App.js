@@ -1,10 +1,11 @@
 import React from 'react';
 import { Router, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import createHistory from 'history/createBrowserHistory'
+import createHistory from 'history/createBrowserHistory';
 
 import configureStore from './layout/appStore';
 import DashboardLayout from './layout/Dashboard/DashboardLayout'
+import "./configs/httpInterceptor";
 import './App.scss';
 
 const history = createHistory()

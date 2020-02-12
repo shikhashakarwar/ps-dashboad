@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import serverDataReducer from './serverDataReducer';
+import RegionDataReducer from './RegionDataReducer';
 
 const allReducers = combineReducers({
-  server: serverDataReducer,
+  regionData: RegionDataReducer,
 })
 
 function getDashboardReducers() {

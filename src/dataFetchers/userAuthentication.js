@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { bidgelyStorage } from "../helpers/storageHelper";
+import { AuthHelper } from "../helpers/authHelper";
 
 export function userAuthentication(loginData){
     // axios.get("abcd").then(
@@ -10,12 +12,15 @@ export function userAuthentication(loginData){
     //     }
     // )
     
-    if(loginData.email === 'raj@gmail.com' && loginData.password === '1234') {
-        let item = Object.assign({exp: 60*1000, currTime: new Date().getTime()});
-        item.expTime = new Date(item.currTime + item.exp).getTime();
-        localStorage.setItem('key', JSON.stringify(item));
-        return true;
-    } else {
-        return false;
-    }
+    return new Promise( (resolve, reject) => {
+        if(loginData.email === 'shikha@bidgely.com' && loginData.password === '1234') {
+            setTimeout(() => {
+                bidgelyStorage.setItem("userData", loginData);
+                AuthHelper.setToken("12321");
+                return resolve(true);
+            });
+        } else {
+            return reject(false);
+        }
+    })
 }

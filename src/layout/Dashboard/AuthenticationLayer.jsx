@@ -7,19 +7,23 @@ import DashboardContainer from '../../components/Dashboard/DashboardContainer'
 
 class AuthenticationLayer extends React.Component{
   componentDidMount() {
-    let item = JSON.parse(localStorage.getItem('key'));
-    var currTime = new Date().getTime();    
-    if(!item || item.expTime < currTime) {
-      localStorage.removeItem('key');
+    const url = this.props.location.pathname;
+    let authToken = JSON.parse(localStorage.getItem('authToken'));
+    if(!authToken) {
       this.props.history.push(LOGIN_PATH);
+    } else if(url.indexOf("login") > 0) {
+      this.props.history.push(DASHBOARD_BASE_PATH);
+    } else {
+      this.props.history.push(url);
     }
   }
 
   render() { 
     return (
       <Switch>
-        <Route exact path={LOGIN_PATH} component={Login}/>      
+        <Route path={LOGIN_PATH} component={Login}/>      
         <Route path={DASHBOARD_BASE_PATH} component={DashboardContainer} /> 
+        <Route exact path={DASHBOARD_BASE_PATH + "/:region"} component={DashboardContainer} /> 
         <Redirect from='/' to={LOGIN_PATH} />        
       </Switch>        
     );
